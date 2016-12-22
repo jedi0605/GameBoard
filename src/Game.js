@@ -1,29 +1,52 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './Game.css';
+import ReactDOM from 'react-dom';
 
-class Square extends React.Component {
-    constructor() {
-    super();
-    this.state = {
-      value: null,
-    };
-    }
-  render() {
-    return (
-      <button className="square" onClick={() => this.setState({value: 'X'})}>
-          {this.state.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    <button className="square" onClick={() => props.onClick()}>
+      {
+        props.value
+      }
+    </button>
+  );
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square value={i} />
+  constructor() {
+    super();
+    this.state = {
+      squares: Array(9).fill(null),
+      xIsNext: true,
+    };
   }
+
+  renderSquare(i) {
+    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} use123={123} />;
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {      
+      return;
+    }
+
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
   render() {
-    const status = 'Next player: X';
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    if (winner) {
+      status = 'Winner: ' + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
     return (
       <div>
         <div className="status">{status}</div>
@@ -45,6 +68,7 @@ class Board extends React.Component {
       </div>
     );
   }
+
 }
 
 class Game extends React.Component {
