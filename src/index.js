@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Game from './Game';
+import App from './App';
+import TopBar from './TopBar';
+import './App.css';
 import './Game.css';
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+
+ReactDOM.render(
+  <TopBar />,
+  document.getElementById('TopBar')
+);
+
+// ReactDOM.render(
+//   <App />,
+//   document.getElementById('container')
+// );
 
 ReactDOM.render(
   <Game />,
-  document.getElementById('root')
+  document.getElementById('GameBoard')
 );
+
