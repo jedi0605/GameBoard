@@ -73,12 +73,15 @@ class Game extends React.Component {
     });
   }
 
-
   jumpTo(step) {
+    console.log(this.state.history.slice(0, step+1));
+    const temp = this.state.history.slice(0, step+1);
     this.setState({
+      history:temp,
       stepNumber: step,
       xIsNext: (step % 2) ? false : true,
     });
+    console.log(this.state.history);
   }
 
   render() {
