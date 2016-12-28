@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Navbar, Jumbotron, Button, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Grid, Navbar, Jumbotron, Button, Nav, NavItem } from 'react-bootstrap';
 
 class TopBar extends Component {
   render() {

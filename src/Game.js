@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Game.css';
 import ReactDOM from 'react-dom';
-import { Grid, Navbar, Jumbotron, Button, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 
 function Square(props) {
   return (

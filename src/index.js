@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Game from './Game';
-import App from './App';
+//import App from './App';
 import TopBar from './TopBar';
+import Metronome from './Metronome';
+
 import './App.css';
 import './Game.css';
 import './index.css';
@@ -23,4 +25,10 @@ ReactDOM.render(
   <Game />,
   document.getElementById('GameBoard')
 );
+
+ReactDOM.render(
+  <Metronome />,
+  document.getElementById('Metronome')
+);
+
 
