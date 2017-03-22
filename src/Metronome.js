@@ -12,58 +12,44 @@ class Metronome extends React.Component {
             active: false,
             intervalId: null,
             intervalAudio: null,
-            count: 1, // for change button color
+            count: 0, // for change button color
+            node: 16 // all bit
         };
     }
 
     activate(s) {
-        if (s === 1) {
-            this.setState({ active: true });
-            this.soundRep();
-            //this.soundPlayer();
+        if (s === 1 && this.state.active === false) {
+            this.setState({ active: true, count: 0 });
+            this.soundRepWithInterval();
+            // this.changeButtonColor();
             console.log("end of Rep");
         }
-        else {
+        else if (s === 0) {
             this.setState({ active: false });
             clearInterval(this.intervalAudio);
         }
     }
 
     getBPM() {
-        return (60000 / this.state.bpm); //determins bpm
+        return (60000 / this.state.bpm) / this.state.node * 8; //determins bpm
     }
 
-    wait(ms) {
-        var startTime = new Date().getTime();
-        while ((new Date().getTime() - startTime) < ms) {
-            console.log("waiting!!!");
-        }
-    }
-
-    // soundPlayer() {
-    //     var audio = new Audio('Click1.wav');
-    //     audio.play();
-    //     console.log("playing.");
-    // }
-
-    soundRep()//plays and loops click sound
+    soundRepWithInterval()//plays and loops click sound
     {
         var self = this;
         var b = this.getBPM(); //gets bpm
         console.log("In sound Rep");
-        // for (var i = 0; i < 10000; i++) {
-        //     setTimeout(function () { self.state.audio.play(); }, 3000);
-        // }
         this.intervalAudio = setInterval(function () {
-            self.state.count = self.state.count + 1;
+            console.log(self.state.count);
+            if (self.state.count == self.state.node)
+            { self.setState({ count: 0 }) }
+            self.setState({ count: self.state.count + 1 })
             self.state.audio.play();
-
         }, b);
     }
 
-    changeButtonColor()
-    {
-        
+    changeButtonColor() {
+        this.setState({ count: this.state.count + 1 });
     }
 
     // var intervalId; // keep the ret val from setTimeout()
@@ -74,6 +60,7 @@ class Metronome extends React.Component {
             self.funca(self, divid);
         }, 300);
     }
+
     mouseupfunc() {
         clearInterval(this.intervalId);
     }
@@ -92,7 +79,13 @@ class Metronome extends React.Component {
     }
 
     renderDot(id) {
-        return <Button id={'dot' + id} >{id}</Button>
+        if (this.state.count === id) {
+            return <Button id={'dot' + id} bsStyle="danger">{id}</Button>
+        }
+        else {
+            return <Button id={'dot' + id} >{id}</Button>
+        }
+
     }
 
     render() {
@@ -108,8 +101,9 @@ class Metronome extends React.Component {
                     {this.renderSetBPM("Down", 1)}
                 </div>
                 <div className="StartStop" style={startStopStyle} >
+                    <h1>Active:{this.state.active.toString()}</h1>
                     <ButtonToolbar>
-                        <Button id="start" bsStyle="success" onClick={() => this.activate(1)}>Start</Button>
+                        <Button id="start" bsStyle="success" onClick={() => this.activate(1)} disabled={this.state.active}>Start</Button>
                         <Button id="stop" bsStyle="danger" onClick={() => this.activate(0)}>Stop</Button>
                     </ButtonToolbar>
                 </div>
@@ -122,6 +116,22 @@ class Metronome extends React.Component {
                     {this.renderDot(6)}
                     {this.renderDot(7)}
                     {this.renderDot(8)}
+                    {this.renderDot(9)}
+                    {this.renderDot(10)}
+                    {this.renderDot(11)}
+                    {this.renderDot(12)}
+                    {this.renderDot(13)}
+                    {this.renderDot(14)}
+                    {this.renderDot(15)}
+                    {this.renderDot(16)}
+                    {this.renderDot(17)}
+                    {this.renderDot(18)}
+                    {this.renderDot(19)}
+                    {this.renderDot(20)}
+                    {this.renderDot(21)}
+                    {this.renderDot(22)}
+                    {this.renderDot(23)}
+                    {this.renderDot(24)}
                 </div>
             </Grid>
         );
